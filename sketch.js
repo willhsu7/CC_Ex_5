@@ -1,70 +1,59 @@
-var thefont = new Array(4);
-var fphases = new Array(4);
-var testphase = 0;
-var speed = 0.01;
+var gridimage;
+var font;
+var mouse;
+var angle = 0.7;
+var gap = 20;
 
-var fsize = 42;
-var insideColor = 0;
-var fontCount = 0;
-var img;
+var text1 = ["Hello World"];
+var text2 = ["<3"];
 
 function preload() {
-  for (var i = 0; i < thefont.length; i++) {
-    thefont[i] = loadFont('./data/font' + i + '.otf');
-  }
-  img = loadImage("./images/galaxy.jpg");
+  gridimage = loadImage("world_map_vector.png");
+  tint(68, 195, 245, 250);
 }
 
 function setup() {
-  createCanvas(1000, 600);
-
-  fill(255, 72, 5);
-  noStroke();
-  textFont(thefont[0], fsize);
-  image(img, -70, -80);
-
-  /*for (var i = 0; i < fphases.length; i++) {
-    fphases[i] = random(0.0, TWO_PI);
-  }*/
-
+  createCanvas(900, 600);
+  background(131, 23, 241);
+  font = loadFont('data/font2.otf');
+  textFont(font);
+  image(gridimage, 0, 0);
+  smooth();
+  frameRate(3);
 }
 
 function draw() {
+  frameRate(3);
 
-  //background(2, 46, 102);
-  var thex = 80;
-  var they = height / 2;
+  push();
+  translate(mouseX, mouseY);
+  rotate(angle);
+  fill(245);
+  textSize(35);
+  text(text1[int(random(0, text1.length))], width / 50, height / 50);
 
-  speed = mouseX / width * 0.03;
-  testphase = (testphase + speed) % TWO_PI;
-  var h = map(sin(testphase), -1.0, 1.0, height, 0);
-  //ellipse(width / 2, h, 20, 20);
+  angle += 0.01;
+  pop();
 
-  var s;
+  translate(mouseX, mouseY);
+  rotate(angle);
+  fill(204, 53, 255);
+  textSize(30);
+  text("Love&Peace", width / 20, height / 20);
+  angle -= 2.5;
+  
+  //text_random show up
+  for(var i = 0; i <width; i= i + 50){
+    for(var j = 0; j<height; j = j + 50){
+      fill(255,100,150, random(100));
+       textFont(font, abs(random(i - 230))); 
+       textSize(20);
+       text(text2, i, random(j));
+    }
+  }
+}
 
-  s = map(sin(fphases[0]), -1.0, 1.0, 9, 64);
-  textFont(thefont[0], s);
-  text('Please Tell Me', thex, they);
-  thex += textWidth('Please Tell Me ');
-  //fphases[0] = (fphases[0] + speed) % TWO_PI;
+function mousePressed() {
+  noLoop();
 
-  s = map(sin(fphases[0]), -1.0, 1.0, 9, 64);
-  textFont(thefont[1], s);
-  text('You Are', thex, they);
-  thex += textWidth(' You Are ');
-  //fphases[1] = (fphases[1] + speed) % TWO_PI;
-
-  s = map(sin(fphases[0]), -1.0, 1.0, 9, 64);
-  textFont(thefont[2], s);
-  text('Seeing', thex, they);
-  thex += textWidth(' Seeing');
-
-  //fphases[2] = (fphases[2] + speed) % TWO_PI;
-
-  s = map(sin(fphases[0]), -1.0, 1.0, 9, 64);
-  textFont(thefont[3], s);
-  text('This Too', thex, they);
-  thex += textWidth(' This Too');
-  //fphases[3] = (fphases[3] + speed) % TWO_PI;
-  //image("galaxy.jpg"); 
 }
