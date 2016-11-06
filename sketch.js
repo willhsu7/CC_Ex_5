@@ -1,59 +1,112 @@
-var gridimage;
+var thefont = new Array(4);
+var gap = 50;
 var font;
-var mouse;
-var angle = 0.7;
-var gap = 20;
-
-var text1 = ["Hello World"];
-var text2 = ["<3"];
+var sky;
+var letter = 'A';
 
 function preload() {
-  gridimage = loadImage("world_map_vector.png");
-  tint(68, 195, 245, 250);
+  sky = loadImage("sky1.jpg");
+  for (var i = 0; i < thefont.length; i++) {
+    thefont[i] = loadFont('./data/font' + i + '.otf');
+  }
 }
 
 function setup() {
-  createCanvas(900, 600);
-  background(131, 23, 241);
-  font = loadFont('data/font2.otf');
-  textFont(font);
-  image(gridimage, 0, 0);
+  createCanvas(1200, 800);
+  background(255);
   smooth();
-  frameRate(3);
+  frameRate(2);
+  //font = loadFont('data/font2.otf');
+  //textFont(thefont[i], fsize);
 }
 
 function draw() {
-  frameRate(3);
-
-  push();
-  translate(mouseX, mouseY);
-  rotate(angle);
-  fill(245);
-  textSize(35);
-  text(text1[int(random(0, text1.length))], width / 50, height / 50);
-
-  angle += 0.01;
-  pop();
-
-  translate(mouseX, mouseY);
-  rotate(angle);
-  fill(204, 53, 255);
-  textSize(30);
-  text("Love&Peace", width / 20, height / 20);
-  angle -= 2.5;
-  
-  //text_random show up
-  for(var i = 0; i <width; i= i + 50){
-    for(var j = 0; j<height; j = j + 50){
-      fill(255,100,150, random(100));
-       textFont(font, abs(random(i - 230))); 
-       textSize(20);
-       text(text2, i, random(j));
+  background(255);
+  image(sky, 0, 0);
+  noStroke();
+  for (var i = 0; i < width; i = i + 100) {
+    for (var j = 0; j < height; j = j + 100) {
+      fill(6, 73, 164, random(100));
+      textFont(thefont[2], abs(random(i - 150)));
+      text(letter, i, random(j));
     }
   }
 }
 
-function mousePressed() {
-  noLoop();
-
+function keyPressed() {
+  if (key == 'B' || key == 'b') {
+    letter = 'B'
+  }
+  if (key == 'C' || key == 'c') {
+    letter = 'C'
+  }
+  if (key == 'D' || key == 'd') {
+    letter = 'D'
+  }
+  if (key == 'E' || key == 'e') {
+    letter = 'E'
+  }
+  if (key == 'F' || key == 'f') {
+    letter = 'F'
+  }
+  if (key == 'G' || key == 'g') {
+    letter = 'G'
+  }
+  if (key == 'H' || key == 'h') {
+    letter = 'H'
+  }
+  if (key == 'I' || key == 'i') {
+    letter = 'I'
+  }
+  if (key == 'J' || key == 'j') {
+    letter = 'J'
+  }
+  if (key == 'K' || key == 'k') {
+    letter = 'K'
+  }
+  if (key == 'L' || key == 'l') {
+    letter = 'L'
+  }
+  if (key == 'M' || key == 'm') {
+    letter = 'M'
+  }
+  if (key == 'N' || key == 'n') {
+    letter = 'N'
+  }
+  if (key == 'O' || key == 'o') {
+    letter = 'O'
+  }
+  if (key == 'P' || key == 'p') {
+    letter = 'P'
+  }
+  if (key == 'Q' || key == 'q') {
+    letter = 'Q'
+  }
+  if (key == 'R' || key == 'r') {
+    letter = 'R'
+  }
+  if (key == 'S' || key == 's') {
+    letter = 'S'
+  }
+  if (key == 'T' || key == 't') {
+    letter = 'T'
+  }
+  if (key == 'U' || key == 'u') {
+    letter = 'U'
+  }
+  if (key == 'V' || key == 'v') {
+    letter = 'V'
+  }
+  if (key == 'W' || key == 'w') {
+    letter = 'W'
+  }
+  if (key == 'X' || key == 'x') {
+    letter = 'X'
+  }
+  if (key == 'Y' || key == 'y') {
+    letter = 'Y'
+  }
+  if (key == 'Z' || key == 'z') {
+    letter = 'Z'
+  }
 }
