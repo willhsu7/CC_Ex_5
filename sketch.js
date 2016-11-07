@@ -1,7 +1,11 @@
 var thefont = new Array(4);
 var gap = 50;
 var font;
+
 var sky;
+var skyback;
+var pointillize = 50;
+
 var colorballoon;
 var thex, they;
 var v; //velocity
@@ -11,6 +15,7 @@ var letter = 'A';
 
 function preload() {
   sky = loadImage("sky1.jpg");
+  skyback = loadImage("sky2.jpg");
   colorballoon = loadImage("color_balloon.png")
   for (var i = 0; i < thefont.length; i++) {
     thefont[i] = loadFont('./data/font' + i + '.otf');
@@ -19,30 +24,48 @@ function preload() {
 
 function setup() {
   createCanvas(1200, 800);
-  background(255);
+  background(245);
+  image(skyback, 0, 0);
   smooth();
   frameRate(2);
-
   initialize();
   //font = loadFont('data/font2.otf');
   //textFont(thefont[i], fsize);
 }
 
 function draw() {
-  background(255);
-  image(sky, 0, 0);
+  background(245);
+  image(skyback,0,0);
+  //the pixel background 
+
+  var x = floor(random(sky.width));
+  var y = floor(random(sky.height));
+
+  sky.loadPixels(); // load pixels of the image
+  var loc = (x + y * sky.width) * 4;
+  var r = sky.pixels[loc];
+  var g = sky.pixels[loc + 1];
+  var b = sky.pixels[loc + 2];
+
+  push();
+  noStroke();
+  fill(r, g, b);
+  rectMode(CENTER);
+  rect(x, y, pointillize, pointillize);
+  pop();
+  
   //flying color balloon 
   hitdetect();
   image(colorballoon, thex, they, 400, 300);
   thex = thex + v * cos(t);
   they = they + v * sin(t);
-  
-  if(thex>width) t=PI - t;
-  if(thex < 0) t = PI - t;
-  if(they > height) t = TWO_PI - t;
-  if(they < 0) t = TWO_PI - t;
-  
-  
+
+  if (thex > width) t = PI - t;
+  if (thex < 0) t = PI - t;
+  if (they > height) t = TWO_PI - t;
+  if (they < 0) t = TWO_PI - t;
+
+
   noStroke();
   //random flying texts
   for (var i = 0; i < width; i = i + 100) {
@@ -54,24 +77,25 @@ function draw() {
   }
 }
 
-function hitdetect(){
-  var r = pwidth/2;
-  
-  if(thex > mouseX - r && thex < mouseX+r  && they > mouseY-r && they< mouseY+r) {
-    if(thex< mouseX) t = PI - t;
-    if(thex > mouseX) t = PI - t;
-    if(they < mouseY) t = TWO_PI- t;
-    if(they < mouseY) t = TWO_PI- t;
-    v= v* 1.5;
-  }
-}
-
-function initialize(){
+function initialize() {
   thex = random(0, width);
   they = random(0, height);
   v = random(5, 10);
   t = random(0, TWO_PI); // random angle
 }
+
+function hitdetect() {
+  var r = pwidth / 2;
+
+  if (thex > mouseX - r && thex < mouseX + r && they > mouseY - r && they < mouseY + r) {
+    if (thex < mouseX) t = PI - t;
+    if (thex > mouseX) t = PI - t;
+    if (they < mouseY) t = TWO_PI - t;
+    if (they < mouseY) t = TWO_PI - t;
+    v = v * 1.5;
+  }
+}
+
 
 function keyPressed() {
   if (key == 'B' || key == 'b') {
