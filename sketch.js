@@ -4,7 +4,7 @@ var font;
 
 var sky;
 var skyback;
-var pointillize = 50;
+var pointillize = 3;
 
 var colorballoon;
 var thex, they;
@@ -34,10 +34,6 @@ function setup() {
 }
 
 function draw() {
-  background(245);
-  image(skyback,0,0);
-  //the pixel background 
-
   var x = floor(random(sky.width));
   var y = floor(random(sky.height));
 
@@ -53,7 +49,14 @@ function draw() {
   rectMode(CENTER);
   rect(x, y, pointillize, pointillize);
   pop();
-  
+
+  background(245);
+  //skyback.filter("gray"); // image filter, changing color
+
+  skyback.filter("threshold", 0.7); // image filter, changing color
+  image(skyback, 0, 0);
+  //the pixel background 
+
   //flying color balloon 
   hitdetect();
   image(colorballoon, thex, they, 400, 300);
@@ -65,14 +68,16 @@ function draw() {
   if (they > height) t = TWO_PI - t;
   if (they < 0) t = TWO_PI - t;
 
-
   noStroke();
   //random flying texts
-  for (var i = 0; i < width; i = i + 100) {
+  for (var q = 0; q < width; q = q + 100) {
     for (var j = 0; j < height; j = j + 100) {
-      fill(6, 73, 164, random(100));
-      textFont(thefont[2], abs(random(i - 150)));
-      text(letter, i, random(j));
+      for(var i = 0; i < thefont.length; i++) {
+      fill(81, 164, 243, random(100));
+      textFont(thefont[i], abs(random(q - 150)));
+      textSize(85); 
+      text(letter, random(q), random(j));
+      }
     }
   }
 }
@@ -95,7 +100,6 @@ function hitdetect() {
     v = v * 1.5;
   }
 }
-
 
 function keyPressed() {
   if (key == 'B' || key == 'b') {
